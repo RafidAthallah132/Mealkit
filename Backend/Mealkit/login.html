@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Please fill in the login form:</p>
+
+<form id="loginForm" onsubmit="submitLogin(event)">
+  Email: <input type="Email" name="Email"><br><br>
+  Password: <input type="Password" name="Password"><br><br>
+  <input type="submit" value="Login">
+</form>
+
+<p id="error-message" style="color:red; display:none;"></p>
+
+<br>
+
+<button onclick="window.location.href='index2.html'">Go to Register</button>
+<button onclick="window.location.href='confirmforgot.html'">Forgot Password?</button>
+
+<script>
+function submitLogin(event) {
+  event.preventDefault(); // Prevent the default form submission
+
+  const form = document.getElementById('loginForm');
+  const formData = new FormData(form);
+
+  fetch('http://localhost:3001/login', {
+    method: 'POST',
+    body: formData,
+  })
+  .then(response => response.json())
+  .then(user => {
+    if (user.success) {
+      // Redirect based on user role
+      if (user.role === 1) {
+        window.location.href = '/admin';
+      } else {
+        window.location.href = '/user';
+      }
+    } else {
+      // Display error message
+      const errorMessage = document.getElementById('error-message');
+      errorMessage.innerText = user.message;
+      errorMessage.style.display = 'block';
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    const errorMessage = document.getElementById('error-message');
+    errorMessage.innerText = 'An unexpected error occurred. Please try again later.';
+    errorMessage.style.display = 'block';
+  });
+}
+</script>
+
+</body>
+</html>

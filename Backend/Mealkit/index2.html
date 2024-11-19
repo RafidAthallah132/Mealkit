@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p> Silahkan isi input berikut:</p>
+
+<form id="frm1" action="http://localhost:3000/user" method="POST">
+  <!-- NRP: <input type="text" name="nrp"><br> -->
+  Username: <input type="text" name="Username"><br><br>
+  Email:   <input type="email" id="email" name="email"> <br><br>
+  Password: <input type="text" name="Password"><br><br>
+  <input type="button" onclick="myFunction()" value="Submit">
+</form>
+
+<br>
+
+<button onclick="window.location.href='login.html'">Go to Login</button>
+
+<script>
+function myFunction() {
+  document.getElementById("frm1").submit();
+}
+</script>
+
+</body>
+</html>
