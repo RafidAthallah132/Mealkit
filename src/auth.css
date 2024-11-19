@@ -1,0 +1,22 @@
+/* src/Auth.css */
+
+.auth-background {
+    background-image: url("https://foodies.id/wp-content/uploads/2024/04/Meal-Kit.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-form {
+    background-color: rgba(255, 255, 255, 0.8); /* Optional: to make the form stand out */
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+}
+
+h2 {
+    text-align: center;
+}
