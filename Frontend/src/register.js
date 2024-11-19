@@ -13,7 +13,7 @@ const Register = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/register', { username, email, password });
+            const response = await axios.post('http://localhost:3000/register', { username, email, password });
             setSuccess(response.data.message);
             setError('');
             
