@@ -16,13 +16,13 @@ const Register = () => {
             const response = await axios.post('http://localhost:3000/register', { username, email, password });
             setSuccess(response.data.message);
             setError('');
-            
+
             // Redirect to login with success message in state
             navigate('/', { state: { successMessage: 'Account created successfully! Please log in.' } });
-            } catch (error) {
-                setError(error.response?.data?.message || 'An error occurred');
-                setSuccess('');
-            }
+        } catch (error) {
+            setError(error.response?.data?.message || 'An error occurred');
+            setSuccess('');
+        }
     };
 
     return (
@@ -36,52 +36,52 @@ const Register = () => {
                 <p className="auth-slogan">Delicious meals, delivered to your door</p>
             </div>
             <div className="auth-form">
-        <div className="register-container">
-            <h2>Register</h2>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {success && <p style={{ color: 'green' }}>{success}</p>}
-            <form onSubmit={handleRegister}>
-                <div>
-                <div className="form-group">
-                    <label>Username:</label>
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                </div>
-                </div>
-                <div>
-                <div className="form-group">
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                </div>
-                <div>
-                <div className="form-group">
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                </div>
-                <button type="submit">Register</button>
-            </form>
+                <div className="register-container">
+                    <h2>Register</h2>
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
+                    {success && <p style={{ color: 'green' }}>{success}</p>}
+                    <form onSubmit={handleRegister}>
+                        <div>
+                            <div className="form-group">
+                                <label>Username:</label>
+                                <input
+                                    type="text"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <div className="form-group">
+                                <label>Email:</label>
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <div className="form-group">
+                                <label>Password:</label>
+                                <input
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <button type="submit">Register</button>
+                    </form>
 
-            <p>Already have an account? <Link to="/">Login here</Link></p>
+                    <p>Already have an account? <Link to="/">Login here</Link></p>
 
-            
-        </div>
-        </div>
+
+                </div>
+            </div>
         </div>
     );
 };
