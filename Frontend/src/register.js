@@ -38,8 +38,11 @@ const Register = () => {
             <div className="auth-form">
         <div className="register-container">
             <h2>Register</h2>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {success && <p style={{ color: 'green' }}>{success}</p>}
             <form onSubmit={handleRegister}>
                 <div>
+                <div className="form-group">
                     <label>Username:</label>
                     <input
                         type="text"
@@ -48,7 +51,9 @@ const Register = () => {
                         required
                     />
                 </div>
+                </div>
                 <div>
+                <div className="form-group">
                     <label>Email:</label>
                     <input
                         type="email"
@@ -57,7 +62,9 @@ const Register = () => {
                         required
                     />
                 </div>
+                </div>
                 <div>
+                <div className="form-group">
                     <label>Password:</label>
                     <input
                         type="password"
@@ -66,13 +73,13 @@ const Register = () => {
                         required
                     />
                 </div>
+                </div>
                 <button type="submit">Register</button>
             </form>
 
             <p>Already have an account? <Link to="/">Login here</Link></p>
 
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            {success && <p style={{ color: 'green' }}>{success}</p>}
+            
         </div>
         </div>
         </div>

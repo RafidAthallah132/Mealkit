@@ -10,13 +10,8 @@
     align-items: center;
     font-family: 'Arial', sans-serif;
     position: relative;
-    padding: 20px;
+    padding: 10px;
     box-sizing: border-box;
-    --title-top-margin: 0.3rem;
-    --title-bottom-margin: 1rem;
-    --slogan-bottom-margin: 0.3rem;
-    --form-top-margin: 1rem;
-    --form-bottom-margin: 2rem;
 }
 
 .auth-background::before {
@@ -33,8 +28,7 @@
 /* Title and slogan */
 .auth-title-container {
     text-align: center;
-    margin-top: var(--title-top-margin);
-    margin-bottom: var(--title-bottom-margin);
+    margin: 1rem 0;
     position: relative;
     z-index: 2;
 }
@@ -72,37 +66,42 @@
     font-size: 1.25rem;
     font-weight: 500;
     color: white;
-    margin-top: 0.5rem;
-    margin-bottom: var(--slogan-bottom-margin);
+    margin: 0.5rem 0;
 }
 
 /* Container for the form */
 .auth-form {
     background-color: rgba(255, 255, 255, 0.9);
-    padding: 30px;
+    padding: 5px 30px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     max-width: 400px;
     width: 90%;
     text-align: center;
-    margin-top: var(--form-top-margin);
-    margin-bottom: var(--form-bottom-margin);
     position: relative;
     z-index: 2;
 }
 
-/* Form headings */
-.auth-form h2 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
+/* Input field container */
+.auth-form .form-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+/* Labels for input fields */
+.auth-form label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: bold;
     color: #333;
+    margin-bottom: 5px;
 }
 
 /* Input fields */
 .auth-form input {
+    display: block;
     width: 100%;
     padding: 10px;
-    margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1rem;

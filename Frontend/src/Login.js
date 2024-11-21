@@ -49,8 +49,9 @@ const Login = () => {
             <div className="auth-form">
                 <h2>Login</h2>
                 {successMessage && <p className="success-message">{successMessage}</p>}
+                {error && <p className="error-message">{error}</p>}
                 <form onSubmit={handleLogin}>
-                    <div>
+                    <div className="form-group">
                         <label htmlFor="email">Email:</label>
                         <input
                             id="email"
@@ -60,7 +61,7 @@ const Login = () => {
                             required
                         />
                     </div>
-                    <div>
+                    <div className="form-group">
                         <label htmlFor="password">Password:</label>
                         <input
                             id="password"
@@ -72,8 +73,9 @@ const Login = () => {
                     </div>
                     <button type="submit">Login</button>
                 </form>
-                <p>Don't have an account? <Link to="/register">Register here</Link></p>
-                {error && <p className="error-message">{error}</p>}
+                <p>
+                    Don't have an account? <Link to="/register">Register here</Link>
+                </p>
             </div>
         </div>
     );
