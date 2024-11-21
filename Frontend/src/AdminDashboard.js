@@ -36,10 +36,11 @@ const AdminDashboard = () => {
         </div>
       </header>
 
-      <div style={styles.logout}>
-      
-      </div>
       <main style={styles.main}>
+
+      <h3 style={styles.notUseCase}>Note!! Bagian ini diluar Use Case Rafid, Halaman ini merupakan interface placeholder untuk membedakan akses user/admin</h3>
+
+
       <div style={styles.actions}>
           <button style={styles.button}>Add New Food Item</button>
           <button style={styles.button}>Update Food Item</button>
@@ -148,6 +149,12 @@ const styles = {
     fontWeight: 'bold',
     color: 'white',
     marginRight: '2rem',
+  },
+  notUseCase: {
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    color:'red',
+    marginBottom: '1rem',
   },
   headerRight: {
     display: 'flex',

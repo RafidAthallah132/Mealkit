@@ -5,12 +5,12 @@ import { useState, useEffect } from 'react';
 
 const UserDashboard = () => {
   const products = [
-    { id: 1, name: "Fresh Organic Apples", price: 3.99, image: "/placeholder.svg?height=100&width=100" },
-    { id: 2, name: "Whole Grain Bread", price: 2.49, image: "/placeholder.svg?height=100&width=100" },
-    { id: 3, name: "Free-Range Eggs (Dozen)", price: 4.99, image: "/placeholder.svg?height=100&width=100" },
-    { id: 4, name: "Organic Milk", price: 3.79, image: "/placeholder.svg?height=100&width=100" },
-    { id: 5, name: "Lean Ground Beef", price: 5.99, image: "/placeholder.svg?height=100&width=100" },
-    { id: 6, name: "Fresh Atlantic Salmon", price: 9.99, image: "/placeholder.svg?height=100&width=100" },
+    { id: 1, name: "Rawon Nusantara", price: 8.99, image: "https://asset.kompas.com/crops/RAkLCVPTiwC_qhG4W4wb1dN-uX4=/0x12:983x667/1200x800/data/photo/2023/11/17/6556dc6484a92.jpg?height=100&width=100" },
+    { id: 2, name: "Pecel Tumpang", price: 2.49, image: "https://cdn.idntimes.com/content-images/community/2023/09/img-20230930-203702-7a1644e371f3e497fe40cd134675b078_600x400.jpg?height=100&width=100" },
+    { id: 3, name: "Soto Lamongan", price: 3.99, image: "https://statik.tempo.co/data/2023/10/31/id_1250175/1250175_720.jpg?height=100&width=100" },
+    { id: 4, name: "Kare Ayam", price: 3.79, image: "https://awsimages.detik.net.id/community/media/visual/2023/03/08/resep-kari-ayam-malaysia_43.jpeg?w=700&q=90?height=100&width=100" },
+    { id: 5, name: "Cah Kangkung", price: 1.99, image: "https://awsimages.detik.net.id/community/media/visual/2023/07/11/resep-tumis-kangkung-saus-tiram-pedas_43.jpeg?w=700&q=90?height=100&width=100" },
+    { id: 6, name: "Rendang Premium", price: 9.99, image: "https://asset.kompas.com/crops/QsUYn6p5xK4DsivCrxa0_TXdjuk=/10x36:890x623/1200x800/data/photo/2023/03/25/641e5ef63dea4.jpg?height=100&width=100" },
   ];
 
   const categories = ["Fruits & Vegetables", "Bakery", "Dairy & Eggs", "Meat & Seafood", "Pantry", "Frozen Foods"];
@@ -27,8 +27,8 @@ useEffect(() => {
   const userName = email.split("@")[0];
 
 
-// akan muncul banyak warning karena href tidak valid. 
-// TIDAK APA-APA karena hanya tampilanstatic dan memang bukan use case
+// akan muncul banyak warning karena href tidak valid dan tidak mengarah kemanapun. 
+// TIDAK APA-APA karena hanya tampilan interface placeholder untuk membedakan akses user/admin
 
   return (
     <div style={styles.container}>
@@ -57,6 +57,7 @@ useEffect(() => {
         <div style={styles.mainContent}>
           <div style={styles.leftColumn}>
             <h2 style={styles.welcomeMessage}>Welcome back, {userName}!!</h2>
+            <h3 style={styles.notUseCase}>Note!! Bagian ini diluar Use Case Rafid, Halaman ini merupakan interface placeholder untuk membedakan akses user/admin</h3>
             <div style={styles.card}>
               <h3 style={styles.cardTitle}>Quick Shop</h3>
               <p style={styles.cardDescription}>Browse our categories or search for items</p>
@@ -219,6 +220,12 @@ const styles = {
   welcomeMessage: {
     fontSize: '1.5rem',
     fontWeight: 'bold',
+    marginBottom: '1rem',
+  },
+  notUseCase: {
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    color:'red',
     marginBottom: '1rem',
   },
   card: {
