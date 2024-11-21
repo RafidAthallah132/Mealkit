@@ -28,6 +28,13 @@ const Register = () => {
     return (
 
         <div className="auth-background">
+            <div className="auth-title-container">
+                <h1 className="auth-title">
+                    <span className="auth-icon"></span>
+                    <span className="auth-gradient-text">MealKit</span>
+                </h1>
+                <p className="auth-slogan">Delicious meals, delivered to your door</p>
+            </div>
             <div className="auth-form">
         <div className="register-container">
             <h2>Register</h2>

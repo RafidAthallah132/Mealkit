@@ -1,22 +1,153 @@
-/* src/Auth.css */
-
+/* Full-page background styling */
 .auth-background {
-    background-image: url("https://foodies.id/wp-content/uploads/2024/04/Meal-Kit.jpg");
+    background-image: url("https://i.pinimg.com/originals/d3/6d/46/d36d462db827833805497d9ea78a1343.jpg");
     background-size: cover;
     background-position: center;
-    height: 100vh;
+    background-repeat: no-repeat;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-}
-
-.auth-form {
-    background-color: rgba(255, 255, 255, 0.8); /* Optional: to make the form stand out */
+    font-family: 'Arial', sans-serif;
+    position: relative;
     padding: 20px;
-    border-radius: 8px;
-    width: 400px;
+    box-sizing: border-box;
+    --title-top-margin: 0.3rem;
+    --title-bottom-margin: 1rem;
+    --slogan-bottom-margin: 0.3rem;
+    --form-top-margin: 1rem;
+    --form-bottom-margin: 2rem;
 }
 
-h2 {
+.auth-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+/* Title and slogan */
+.auth-title-container {
     text-align: center;
+    margin-top: var(--title-top-margin);
+    margin-bottom: var(--title-bottom-margin);
+    position: relative;
+    z-index: 2;
+}
+
+.auth-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.auth-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 0.5rem;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.auth-gradient-text {
+    background: linear-gradient(to right, #38a169, #3182ce);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 3rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.auth-slogan {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: white;
+    margin-top: 0.5rem;
+    margin-bottom: var(--slogan-bottom-margin);
+}
+
+/* Container for the form */
+.auth-form {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    margin-top: var(--form-top-margin);
+    margin-bottom: var(--form-bottom-margin);
+    position: relative;
+    z-index: 2;
+}
+
+/* Form headings */
+.auth-form h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Input fields */
+.auth-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Buttons */
+.auth-form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4caf50;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth-form button:hover {
+    background-color: #45a049;
+}
+
+/* Link for navigation */
+.auth-form a {
+    color: #4caf50;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.auth-form a:hover {
+    text-decoration: underline;
+}
+
+/* Success or error messages */
+.success-message {
+    color: green;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
 }

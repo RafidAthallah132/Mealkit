@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import './auth.css'; // Adjust path if needed (if using a different name)
-
+import './auth.css'; // Import the CSS file
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -10,67 +8,75 @@ const Login = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
-const successMessage = location.state?.successMessage || '';
+    const successMessage = location.state?.successMessage || '';
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/login', { email, password });
-            const { role, message } = response.data;
+            const response = await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+            const data = await response.json();
 
-            if (message === 'Login successful') {
-                if (role === 1) {
+            if (response.ok) {
+                if (data.role === 1) {
                     navigate('/admin-dashboard');
                 } else {
                     navigate('/user-dashboard');
-                } 
+                }
                 setError(''); // Clear error message
+            } else {
+                setError(data.message || 'An error occurred');
             }
         } catch (error) {
-            setError(error.response?.data?.message || 'An error occurred');
+            setError('An error occurred. Please try again.');
         }
     };
 
-// aa
-
     return (
         <div className="auth-background">
+            <div className="auth-title-container">
+                <h1 className="auth-title">
+                    <span className="auth-icon"></span>
+                    <span className="auth-gradient-text">MealKit</span>
+                </h1>
+                <p className="auth-slogan">Delicious meals, delivered to your door</p>
+            </div>
             <div className="auth-form">
-        
-            <div className="login-container">
-            <h2>Login</h2>
-
-            {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-
-            <form onSubmit={handleLogin}>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Login</button>
-            </form>
-            <p>Don't have an account? <Link to="/register">Register here</Link></p>
-
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-        </div>
-        </div>
+                <h2>Login</h2>
+                {successMessage && <p className="success-message">{successMessage}</p>}
+                <form onSubmit={handleLogin}>
+                    <div>
+                        <label htmlFor="email">Email:</label>
+                        <input
+                            id="email"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="password">Password:</label>
+                        <input
+                            id="password"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+                <p>Don't have an account? <Link to="/register">Register here</Link></p>
+                {error && <p className="error-message">{error}</p>}
+            </div>
         </div>
     );
 };
 
-        
 export default Login;
