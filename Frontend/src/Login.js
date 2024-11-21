@@ -26,6 +26,7 @@ const Login = () => {
                 if (data.role === 1) {
                     navigate('/admin-dashboard');
                 } else {
+                    localStorage.setItem('email', email);
                     navigate('/user-dashboard');
                 }
                 setError(''); // Clear error message

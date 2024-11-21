@@ -1,4 +1,7 @@
 import React from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
 
 const UserDashboard = () => {
   const products = [
@@ -11,10 +14,21 @@ const UserDashboard = () => {
   ];
 
   const categories = ["Fruits & Vegetables", "Bakery", "Dairy & Eggs", "Meat & Seafood", "Pantry", "Frozen Foods"];
+  const [email, setEmail] = useState('');
+
+// Retrieve the username from localStorage on component mount
+useEffect(() => {
+    const storedEmail = localStorage.getItem('email'); // Retrieve username
+    if (storedEmail) {
+      setEmail(storedEmail); // Set username in state
+    }
+  }, []);
+
+  const userName = email.split("@")[0];
 
 
 // akan muncul banyak warning karena href tidak valid. 
-// TIDAK APA-APA karena hanya tampilan static dan memang bukan use case
+// TIDAK APA-APA karena hanya tampilanstatic dan memang bukan use case
 
   return (
     <div style={styles.container}>
@@ -42,7 +56,7 @@ const UserDashboard = () => {
       <main style={styles.main}>
         <div style={styles.mainContent}>
           <div style={styles.leftColumn}>
-            <h2 style={styles.welcomeMessage}>Welcome back, User!</h2>
+            <h2 style={styles.welcomeMessage}>Welcome back, {userName}!!</h2>
             <div style={styles.card}>
               <h3 style={styles.cardTitle}>Quick Shop</h3>
               <p style={styles.cardDescription}>Browse our categories or search for items</p>
@@ -77,7 +91,8 @@ const UserDashboard = () => {
                 <ul style={styles.accountLinks}>
                   <li><a href="#" style={styles.accountLink}>👤 Profile</a></li>
                   <li><a href="#" style={styles.accountLink}>🛒 Orders</a></li>
-                  <li><a href="#" style={styles.accountLink}>🚪 Logout</a></li>
+                  <Link to="/"> 🚪 Logout</Link>
+
                 </ul>
               </nav>
             </div>
