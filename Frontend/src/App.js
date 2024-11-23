@@ -5,6 +5,7 @@ import Register from './register';
 import AdminDashboard from './AdminDashboard';
 import UserDashboard from './UserDashboard';
 import Home from './Home';
+import ForgotPassword from './ForgotPassword';
 
 function App() {
     return (
@@ -14,7 +15,7 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/admin-dashboard" element={<AdminDashboard />} />
                 <Route path="/user-dashboard" element={<UserDashboard />} />
-                <Route path="/home" element={<Home />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
             </Routes>
         </Router>
     );

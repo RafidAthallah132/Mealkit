@@ -92,6 +92,39 @@ app.post('/register', (req, res) => {
     });
 });
 
+app.post('/forgot-reset-password', (req, res) => {
+    const { email, username, newPassword } = req.body;
+
+    if (!email || !username || !newPassword) {
+        return res.status(400).json({ message: 'Email, username, and new password are required' });
+    }
+
+    // Check if the username and email exist in the database
+    const query = 'SELECT * FROM user_mealkit WHERE email = ? AND username = ?';
+    db.query(query, [email, username], (err, results) => {
+        if (err) {
+            console.error('Database query error:', err);
+            return res.status(500).json({ message: 'Server error while querying database' });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ message: 'No account found with the provided email and username.' });
+        }
+
+        // Update the password in the database (without hashing)
+        const updateQuery = 'UPDATE user_mealkit SET password = ? WHERE email = ? AND username = ?';
+        db.query(updateQuery, [newPassword, email, username], (err, updateResults) => {
+            if (err) {
+                console.error('Database update error:', err);
+                return res.status(500).json({ message: 'Server error while updating password' });
+            }
+
+            res.json({ message: 'Password updated successfully. You can now log in with your new password.' });
+        });
+    });
+});
+
+
 
 // Start server
 const PORT = 3000;

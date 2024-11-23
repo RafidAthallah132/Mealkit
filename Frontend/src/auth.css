@@ -109,23 +109,52 @@
 }
 
 /* Buttons */
+/* General button styles */
 .auth-form button {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4caf50;
-    color: white;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-.auth-form button:hover {
-    background-color: #45a049;
+/* Button group styling (for horizontal alignment) */
+.button-group {
+    display: flex;
+    justify-content: space-between; /* Space between the buttons */
+    gap: 10px; /* Adds a small gap between buttons */
 }
+
+/* Specific styling for reset button */
+.proceed-button {
+    background-color: #4CAF50; /* Green for reset */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 48%;
+}
+
+/* Specific styling for cancel button */
+.cancel-button {
+    background-color: white;
+    color: #4CAF50; /* Green text for cancel */
+    border: 1px solid #4CAF50; /* Green border for cancel button */
+    border-radius: 5px;
+    width: 48%;
+    cursor: pointer; /* Change cursor for cancel button */
+}
+
+/* Hover effects */
+.proceed-button:hover {
+    background-color: #327636; /* Slightly darker green on hover */
+}
+
+.cancel-button:hover {
+    background-color: #dfdfdf; /* Slightly gray background on hover for cancel */
+}
+
+
 
 /* Link for navigation */
 .auth-form a {
@@ -150,3 +179,6 @@
     margin-bottom: 10px;
     font-size: 0.9rem;
 }
+
+
+

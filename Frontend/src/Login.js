@@ -72,7 +72,13 @@ const Login = () => {
                             required
                         />
                     </div>
-                    <button type="submit">Login</button>
+
+                    <p>
+    <Link to="/forgot-password">Forgot Password?</Link>
+</p>
+
+
+                    <button type="submit" className='proceed-button'>Login</button>
                 </form>
                 <p>
                     Don't have an account? <Link to="/register">Register here</Link>
