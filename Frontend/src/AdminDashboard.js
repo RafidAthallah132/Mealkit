@@ -1,110 +1,278 @@
-import React from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 
+import React, { useState } from 'react';
 
 const AdminDashboard = () => {
-  const foodItems = [
-    { id: 1, name: 'Fresh Organic Apples', category: 'Fruits & Vegetables', price: 3.99, stock: 50 },
-    { id: 2, name: 'Whole Grain Bread', category: 'Bakery', price: 2.49, stock: 120 },
-    { id: 3, name: 'Free-Range Eggs (Dozen)', category: 'Dairy & Eggs', price: 4.99, stock: 200 },
-    { id: 4, name: 'Organic Milk', category: 'Dairy & Eggs', price: 3.79, stock: 80 },
-    { id: 5, name: 'Lean Ground Beef', category: 'Meat & Seafood', price: 5.99, stock: 30 },
-    { id: 6, name: 'Fresh Atlantic Salmon', category: 'Meat & Seafood', price: 9.99, stock: 15 },
-  ];
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [users, setUsers] = useState([
+    { id: 1, name: 'John Doe', email: 'john@example.com', role: 'User' },
+    { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'Admin' },
+  ]);
+  const [menuItems, setMenuItems] = useState([
+    { id: 1, name: 'Chicken Stir Fry', price: 12.99, category: 'Main Course' },
+    { id: 2, name: 'Vegetable Soup', price: 8.99, category: 'Appetizer' },
+  ]);
+  const [availability, setAvailability] = useState([
+    { id: 1, item: 'Chicken Stir Fry', date: '2024-03-01', quantity: 50 },
+    { id: 2, item: 'Vegetable Soup', date: '2024-03-01', quantity: 30 },
+  ]);
 
-  const users = [
-    { id: 1, name: 'John Doe', email: 'john@example.com', role: 'User', status: 'Active' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'User', status: 'Inactive' },
-    { id: 3, name: 'Robert Brown', email: 'robert@example.com', role: 'Admin', status: 'Active' },
-    { id: 4, name: 'Alice Johnson', email: 'alice@example.com', role: 'User', status: 'Active' },
-    { id: 5, name: 'Chris Lee', email: 'chris@example.com', role: 'Admin', status: 'Inactive' },
-  ];
+  const [newUser, setNewUser] = useState({ name: '', email: '', role: 'User' });
+  const [newMenuItem, setNewMenuItem] = useState({ name: '', price: '', category: 'Main Course' });
+  const [newAvailability, setNewAvailability] = useState({ item: '', date: '', quantity: '' });
+
+  const addUser = () => {
+    setUsers([...users, { ...newUser, id: users.length + 1 }]);
+    setNewUser({ name: '', email: '', role: 'User' });
+  };
+
+  const addMenuItem = () => {
+    setMenuItems([...menuItems, { ...newMenuItem, id: menuItems.length + 1, price: parseFloat(newMenuItem.price) }]);
+    setNewMenuItem({ name: '', price: '', category: 'Main Course' });
+  };
+
+  const addAvailability = () => {
+    setAvailability([...availability, { ...newAvailability, id: availability.length + 1, quantity: parseInt(newAvailability.quantity) }]);
+    setNewAvailability({ item: '', date: '', quantity: '' });
+  };
+
+  const deleteUser = (id) => {
+    setUsers(users.filter(user => user.id !== id));
+  };
+
+  const deleteMenuItem = (id) => {
+    setMenuItems(menuItems.filter(item => item.id !== id));
+  };
+
+  const updateAvailability = (id, newQuantity) => {
+    setAvailability(availability.map(item => 
+      item.id === id ? { ...item, quantity: parseInt(newQuantity) } : item
+    ));
+  };
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'users':
+        return (
+          <div>
+            <h2>User Management</h2>
+            <div style={styles.form}>
+              <input
+                type="text"
+                placeholder="Name"
+                value={newUser.name}
+                onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+                style={styles.input}
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                value={newUser.email}
+                onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+                style={styles.input}
+              />
+              <select
+                value={newUser.role}
+                onChange={(e) => setNewUser({ ...newUser, role: e.target.value })}
+                style={styles.input}
+              >
+                <option value="User">User</option>
+                <option value="Admin">Admin</option>
+              </select>
+              <button onClick={addUser} style={styles.button}>Add User</button>
+            </div>
+            <table style={styles.table}>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user) => (
+                  <tr key={user.id}>
+                    <td>{user.id}</td>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>{user.role}</td>
+                    <td>
+                      <button onClick={() => deleteUser(user.id)} style={styles.deleteButton}>Delete</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+      case 'menu':
+        return (
+          <div>
+            <h2>Menu Management</h2>
+            <div style={styles.form}>
+              <input
+                type="text"
+                placeholder="Item Name"
+                value={newMenuItem.name}
+                onChange={(e) => setNewMenuItem({ ...newMenuItem, name: e.target.value })}
+                style={styles.input}
+              />
+              <input
+                type="number"
+                placeholder="Price"
+                value={newMenuItem.price}
+                onChange={(e) => setNewMenuItem({ ...newMenuItem, price: e.target.value })}
+                style={styles.input}
+              />
+              <select
+                value={newMenuItem.category}
+                onChange={(e) => setNewMenuItem({ ...newMenuItem, category: e.target.value })}
+                style={styles.input}
+              >
+                <option value="Main Course">Main Course</option>
+                <option value="Appetizer">Appetizer</option>
+                <option value="Dessert">Dessert</option>
+              </select>
+              <button onClick={addMenuItem} style={styles.button}>Add Item</button>
+            </div>
+            <table style={styles.table}>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Category</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {menuItems.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.id}</td>
+                    <td>{item.name}</td>
+                    <td>${item.price.toFixed(2)}</td>
+                    <td>{item.category}</td>
+                    <td>
+                      <button onClick={() => deleteMenuItem(item.id)} style={styles.deleteButton}>Delete</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+      case 'availability':
+        return (
+          <div>
+            <h2>Availability Management</h2>
+            <div style={styles.form}>
+              <input
+                type="text"
+                placeholder="Item Name"
+                value={newAvailability.item}
+                onChange={(e) => setNewAvailability({ ...newAvailability, item: e.target.value })}
+                style={styles.input}
+              />
+              <input
+                type="date"
+                value={newAvailability.date}
+                onChange={(e) => setNewAvailability({ ...newAvailability, date: e.target.value })}
+                style={styles.input}
+              />
+              <input
+                type="number"
+                placeholder="Quantity"
+                value={newAvailability.quantity}
+                onChange={(e) => setNewAvailability({ ...newAvailability, quantity: e.target.value })}
+                style={styles.input}
+              />
+              <button onClick={addAvailability} style={styles.button}>Add Availability</button>
+            </div>
+            <table style={styles.table}>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Item</th>
+                  <th>Date</th>
+                  <th>Quantity</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {availability.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.id}</td>
+                    <td>{item.item}</td>
+                    <td>{item.date}</td>
+                    <td>
+                      <input
+                        type="number"
+                        value={item.quantity}
+                        onChange={(e) => updateAvailability(item.id, e.target.value)}
+                        style={styles.quantityInput}
+                      />
+                    </td>
+                    <td>
+                      <button onClick={() => updateAvailability(item.id, item.quantity)} style={styles.updateButton}>Update</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+      default:
+        return (
+          <div>
+            <h2>Dashboard</h2>
+            <div style={styles.statsContainer}>
+              <div style={styles.statBox}>
+                <h3>Total Users</h3>
+                <p>{users.length}</p>
+              </div>
+              <div style={styles.statBox}>
+                <h3>Active Menu Items</h3>
+                <p>{menuItems.length}</p>
+              </div>
+              <div style={styles.statBox}>
+                <h3>Total Availability</h3>
+                <p>{availability.reduce((sum, item) => sum + item.quantity, 0)}</p>
+              </div>
+            </div>
+          </div>
+        );
+    }
+  };
 
   return (
     <div style={styles.container}>
       <header style={styles.header}>
-        <div style={styles.headerContent}>
-          <div style={styles.headerLeft}>
-            <h1 style={styles.logo}>MealKit</h1>
-          </div>
-          <div style={styles.headerMiddle}>
-            <h1 style={styles.biggerLogo}>Admin Dashboard</h1>
-          </div>
-          <div style={styles.headerRight}>
-          <Link to="/"><button style={styles.logoutButton}> Logout</button></Link>
-          </div>
-        </div>
+        <h1 style={styles.title}>MealKit Admin</h1>
+        <Link to="/"><button style={styles.logoutButton}> Logout</button></Link>
       </header>
-
-      <main style={styles.main}>
-
-      <h3 style={styles.notUseCase}>Note!! Bagian ini diluar Use Case Rafid, Halaman ini merupakan interface placeholder untuk membedakan akses user/admin</h3>
-
-
-      <div style={styles.actions}>
-          <button style={styles.button}>Add New Food Item</button>
-          <button style={styles.button}>Update Food Item</button>
-          <button style={styles.button}>View Reports</button>
-        </div>
-        <h2 style={styles.sectionTitle}>Food Items</h2>
-        <table style={styles.table}>
-          <thead>
-            <tr>
-              <th style={styles.th}>ID</th>
-              <th style={styles.th}>Name</th>
-              <th style={styles.th}>Category</th>
-              <th style={styles.th}>Price</th>
-              <th style={styles.th}>Stock</th>
-            </tr>
-          </thead>
-          <tbody>
-            {foodItems.map(item => (
-              <tr key={item.id}>
-                <td style={styles.td}>{item.id}</td>
-                <td style={styles.td}>{item.name}</td>
-                <td style={styles.td}>{item.category}</td>
-                <td style={styles.td}>${item.price.toFixed(2)}</td>
-                <td style={styles.td}>{item.stock}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <h2 style={styles.sectionTitle}>Users</h2>
-        <div style={styles.actions}>
-        <button style={styles.button}>Add New User</button>
-        <button style={styles.button}>Update User</button>
-        <button style={styles.button}>Delete User</button>
-        </div>
-        
-        <table style={styles.table}>
-          <thead>
-            <tr>
-              <th style={styles.th}>ID</th>
-              <th style={styles.th}>Name</th>
-              <th style={styles.th}>Email</th>
-              <th style={styles.th}>Role</th>
-              <th style={styles.th}>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map(user => (
-              <tr key={user.id}>
-                <td style={styles.td}>{user.id}</td>
-                <td style={styles.td}>{user.name}</td>
-                <td style={styles.td}>{user.email}</td>
-                <td style={styles.td}>{user.role}</td>
-                <td style={styles.td}>{user.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        
-      </main>
-
+      <div style={styles.content}>
+        <nav style={styles.sidebar}>
+          {['dashboard', 'users', 'menu', 'availability'].map((tab) => (
+            <button
+              key={tab}
+              style={{
+                ...styles.tab,
+                ...(activeTab === tab ? styles.activeTab : {}),
+              }}
+              onClick={() => setActiveTab(tab)}
+            >
+              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+            </button>
+          ))}
+        </nav>
+        <main style={styles.main}>
+          {renderContent()}
+        </main>
+      </div>
       <footer style={styles.footer}>
-        <p>&copy; 2024 Admin Dashboard. All rights reserved.</p>
+        <p>&copy; 2024 MealKit Admin. All rights reserved.</p>
       </footer>
     </div>
   );
@@ -116,116 +284,111 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh',
-    backgroundColor: '#f4f4f9',
   },
   header: {
     backgroundColor: '#2eb82e',
-    borderBottom: '1px solid #e2e8f0',
-  },
-  headerContent: {
+    color: 'white',
+    padding: '1rem',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  title: {
+    margin: 0,
+  },
+  content: {
+    display: 'flex',
+    flex: 1,
+  },
+  sidebar: {
+    width: '200px',
+    backgroundColor: '#f4f4f9',
     padding: '1rem',
-    maxWidth: '1200px',
-    margin: '0 auto',
-  },
-  headerMiddle:{
-    display:'flex',
-    textAlign:'middle'
-  },
-  headerLeft: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  logo: {
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    color: 'white',
-    marginRight: '2rem',
-  },
-  biggerLogo: {
-    fontSize: '2.5rem',
-    fontWeight: 'bold',
-    color: 'white',
-    marginRight: '2rem',
-  },
-  notUseCase: {
-    fontSize: '1.2rem',
-    fontWeight: 'bold',
-    color:'red',
-    marginBottom: '1rem',
-  },
-  headerRight: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  iconButton: {
-    background: 'none',
-    border: 'none',
-    fontSize: '1.25rem',
-    cursor: 'pointer',
-    marginLeft: '1rem',
   },
   main: {
-    flexGrow: 1,
-    padding: '2rem',
-    maxWidth: '1200px',
-    margin: '0 auto',
-  },
-  sectionTitle: {
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    marginBottom: '1rem',
-  },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse',
-    marginBottom: '2rem',
-  },
-  th: {
-    backgroundColor: '#f2f2f2',
-    padding: '8px',
-    textAlign: 'left',
-    border: '1px solid #ddd',
-  },
-  td: {
-    padding: '8px',
-    textAlign: 'left',
-    border: '1px solid #ddd',
-  },
-  actions: {
-    display: 'flex',
-    gap: '1rem',
-    marginTop: '2rem',
-  },
-  logoutButton: {
-    padding: '0.8rem 1.5rem',
-    backgroundColor: 'red',
-    color: 'white',
-    border: 'none',
-    borderRadius: '0.25rem',
-    cursor: 'pointer',
-  },
-  button: {
-    padding: '0.8rem 1.5rem',
-    backgroundColor: '#4CAF50',
-    color: 'white',
-    border: 'none',
-    borderRadius: '0.25rem',
-    cursor: 'pointer',
+    flex: 1,
+    padding: '1rem',
   },
   footer: {
     backgroundColor: '#333',
     color: 'white',
     textAlign: 'center',
     padding: '1rem',
-    marginTop: '2rem',
   },
-  logout: {
-    textAlign: 'right',
+  logoutButton: {
+    padding: '0.5rem 1rem',
+    backgroundColor: 'red',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
   },
-  
+  tab: {
+    display: 'block',
+    width: '100%',
+    padding: '0.5rem',
+    marginBottom: '0.5rem',
+    backgroundColor: '#e0e0e0',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    textAlign: 'left',
+  },
+  activeTab: {
+    backgroundColor: '#2eb82e',
+    color: 'white',
+  },
+  form: {
+    marginBottom: '1rem',
+  },
+  input: {
+    marginRight: '0.5rem',
+    padding: '0.5rem',
+  },
+  button: {
+    padding: '0.5rem 1rem',
+    backgroundColor: '#2eb82e',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+  },
+  table: {
+    width: '100%',
+    borderCollapse: 'collapse',
+  },
+  deleteButton: {
+    padding: '0.25rem 0.5rem',
+    backgroundColor: 'red',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+  },
+  updateButton: {
+    padding: '0.25rem 0.5rem',
+    backgroundColor: '#2eb82e',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+  },
+  quantityInput: {
+    width: '50px',
+    padding: '0.25rem',
+  },
+  statsContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  statBox: {
+    flex: 1,
+    margin: '0.5rem',
+    padding: '1rem',
+    backgroundColor: '#f0f0f0',
+    borderRadius: '8px',
+    textAlign: 'center',
+  },
 };
 
 export default AdminDashboard;

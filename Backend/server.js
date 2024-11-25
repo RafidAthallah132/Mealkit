@@ -108,7 +108,7 @@ app.post('/forgot-reset-password', (req, res) => {
         }
 
         if (results.length === 0) {
-            return res.status(404).json({ message: 'No account found with the provided email and username.' });
+            return res.status(404).json({ message: 'No account found with the provided username and email.' });
         }
 
         // Update the password in the database (without hashing)
@@ -119,7 +119,7 @@ app.post('/forgot-reset-password', (req, res) => {
                 return res.status(500).json({ message: 'Server error while updating password' });
             }
 
-            res.json({ message: 'Password updated successfully. You can now log in with your new password.' });
+            res.json({ message: 'Password updated successfully. You will be redirected to the login page in 5 seconds.' });
         });
     });
 });

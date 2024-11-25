@@ -57,7 +57,6 @@ useEffect(() => {
         <div style={styles.mainContent}>
           <div style={styles.leftColumn}>
             <h2 style={styles.welcomeMessage}>Welcome back, {userName}!!</h2>
-            <h3 style={styles.notUseCase}>Note!! Bagian ini diluar Use Case Rafid, Halaman ini merupakan interface placeholder untuk membedakan akses user/admin</h3>
             <div style={styles.card}>
               <h3 style={styles.cardTitle}>Quick Shop</h3>
               <p style={styles.cardDescription}>Browse our categories or search for items</p>
