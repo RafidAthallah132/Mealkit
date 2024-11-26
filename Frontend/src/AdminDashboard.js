@@ -1,6 +1,5 @@
-import { useNavigate, Link, useLocation } from 'react-router-dom';
-
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -56,32 +55,32 @@ const AdminDashboard = () => {
         return (
           <div>
             <h2>User Management</h2>
-            <div style={styles.form}>
+            <div className="form">
               <input
                 type="text"
                 placeholder="Name"
                 value={newUser.name}
                 onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
-                style={styles.input}
+                className="input"
               />
               <input
                 type="email"
                 placeholder="Email"
                 value={newUser.email}
                 onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-                style={styles.input}
+                className="input"
               />
               <select
                 value={newUser.role}
                 onChange={(e) => setNewUser({ ...newUser, role: e.target.value })}
-                style={styles.input}
+                className="input"
               >
                 <option value="User">User</option>
                 <option value="Admin">Admin</option>
               </select>
-              <button onClick={addUser} style={styles.button}>Add User</button>
+              <button onClick={addUser} className="button">Add User</button>
             </div>
-            <table style={styles.table}>
+            <table className="table">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -99,7 +98,7 @@ const AdminDashboard = () => {
                     <td>{user.email}</td>
                     <td>{user.role}</td>
                     <td>
-                      <button onClick={() => deleteUser(user.id)} style={styles.deleteButton}>Delete</button>
+                      <button onClick={() => deleteUser(user.id)} className="delete-button">Delete</button>
                     </td>
                   </tr>
                 ))}
@@ -111,33 +110,33 @@ const AdminDashboard = () => {
         return (
           <div>
             <h2>Menu Management</h2>
-            <div style={styles.form}>
+            <div className="form">
               <input
                 type="text"
                 placeholder="Item Name"
                 value={newMenuItem.name}
                 onChange={(e) => setNewMenuItem({ ...newMenuItem, name: e.target.value })}
-                style={styles.input}
+                className="input"
               />
               <input
                 type="number"
                 placeholder="Price"
                 value={newMenuItem.price}
                 onChange={(e) => setNewMenuItem({ ...newMenuItem, price: e.target.value })}
-                style={styles.input}
+                className="input"
               />
               <select
                 value={newMenuItem.category}
                 onChange={(e) => setNewMenuItem({ ...newMenuItem, category: e.target.value })}
-                style={styles.input}
+                className="input"
               >
                 <option value="Main Course">Main Course</option>
                 <option value="Appetizer">Appetizer</option>
                 <option value="Dessert">Dessert</option>
               </select>
-              <button onClick={addMenuItem} style={styles.button}>Add Item</button>
+              <button onClick={addMenuItem} className="button">Add Item</button>
             </div>
-            <table style={styles.table}>
+            <table className="table">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -155,7 +154,7 @@ const AdminDashboard = () => {
                     <td>${item.price.toFixed(2)}</td>
                     <td>{item.category}</td>
                     <td>
-                      <button onClick={() => deleteMenuItem(item.id)} style={styles.deleteButton}>Delete</button>
+                      <button onClick={() => deleteMenuItem(item.id)} className="delete-button">Delete</button>
                     </td>
                   </tr>
                 ))}
@@ -167,30 +166,30 @@ const AdminDashboard = () => {
         return (
           <div>
             <h2>Availability Management</h2>
-            <div style={styles.form}>
+            <div className="form">
               <input
                 type="text"
                 placeholder="Item Name"
                 value={newAvailability.item}
                 onChange={(e) => setNewAvailability({ ...newAvailability, item: e.target.value })}
-                style={styles.input}
+                className="input"
               />
               <input
                 type="date"
                 value={newAvailability.date}
                 onChange={(e) => setNewAvailability({ ...newAvailability, date: e.target.value })}
-                style={styles.input}
+                className="input"
               />
               <input
                 type="number"
                 placeholder="Quantity"
                 value={newAvailability.quantity}
                 onChange={(e) => setNewAvailability({ ...newAvailability, quantity: e.target.value })}
-                style={styles.input}
+                className="input"
               />
-              <button onClick={addAvailability} style={styles.button}>Add Availability</button>
+              <button onClick={addAvailability} className="button">Add Availability</button>
             </div>
-            <table style={styles.table}>
+            <table className="table">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -211,11 +210,11 @@ const AdminDashboard = () => {
                         type="number"
                         value={item.quantity}
                         onChange={(e) => updateAvailability(item.id, e.target.value)}
-                        style={styles.quantityInput}
+                        className="quantity-input"
                       />
                     </td>
                     <td>
-                      <button onClick={() => updateAvailability(item.id, item.quantity)} style={styles.updateButton}>Update</button>
+                      <button onClick={() => updateAvailability(item.id, item.quantity)} className="update-button">Update</button>
                     </td>
                   </tr>
                 ))}
@@ -227,16 +226,16 @@ const AdminDashboard = () => {
         return (
           <div>
             <h2>Dashboard</h2>
-            <div style={styles.statsContainer}>
-              <div style={styles.statBox}>
+            <div className="stats-container">
+              <div className="stat-box">
                 <h3>Total Users</h3>
                 <p>{users.length}</p>
               </div>
-              <div style={styles.statBox}>
+              <div className="stat-box">
                 <h3>Active Menu Items</h3>
                 <p>{menuItems.length}</p>
               </div>
-              <div style={styles.statBox}>
+              <div className="stat-box">
                 <h3>Total Availability</h3>
                 <p>{availability.reduce((sum, item) => sum + item.quantity, 0)}</p>
               </div>
@@ -247,148 +246,162 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <header style={styles.header}>
-        <h1 style={styles.title}>MealKit Admin</h1>
-        <Link to="/"><button style={styles.logoutButton}> Logout</button></Link>
+    <div className="container">
+      <header className="header">
+        <h1 className="title">MealKit Admin</h1>
+        <Link to="/"><button className="logout-button">Logout</button></Link>
       </header>
-      <div style={styles.content}>
-        <nav style={styles.sidebar}>
+      <div className="content">
+        <nav className="sidebar">
           {['dashboard', 'users', 'menu', 'availability'].map((tab) => (
             <button
               key={tab}
-              style={{
-                ...styles.tab,
-                ...(activeTab === tab ? styles.activeTab : {}),
-              }}
+              className={`tab ${activeTab === tab ? 'active-tab' : ''}`}
               onClick={() => setActiveTab(tab)}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
             </button>
           ))}
         </nav>
-        <main style={styles.main}>
+        <main className="main">
           {renderContent()}
         </main>
       </div>
-      <footer style={styles.footer}>
+      <footer className="footer">
         <p>&copy; 2024 MealKit Admin. All rights reserved.</p>
       </footer>
+      <style jsx>{`
+        .container {
+          font-family: Arial, sans-serif;
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+        }
+        .header {
+          background-color: #2eb82e;
+          color: white;
+          padding: 1rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .title {
+          margin: 0;
+        }
+        .content {
+          display: flex;
+          flex: 1;
+        }
+        .sidebar {
+          width: 200px;
+          background-color: #f4f4f9;
+          padding: 1rem;
+        }
+        .main {
+          flex: 1;
+          padding: 1rem;
+        }
+        .footer {
+          background-color: #333;
+          color: white;
+          text-align: center;
+          padding: 1rem;
+        }
+        .logout-button {
+          padding: 0.5rem 1rem;
+          background-color: red;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        .tab {
+          display: block;
+          width: 100%;
+          padding: 0.5rem;
+          margin-bottom: 0.5rem;
+          background-color: #e0e0e0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          text-align: left;
+        }
+        .active-tab {
+          background-color: #2eb82e;
+          color: white;
+        }
+        .form {
+          margin-bottom: 1rem;
+        }
+        .input {
+          margin-right: 0.5rem;
+          padding: 0.5rem;
+        }
+        .button {
+          padding: 0.5rem 1rem;
+          background-color: #2eb82e;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        .table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 1rem;
+        }
+        .table th,
+        .table td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+        }
+        .table th {
+          background-color: #f2f2f2;
+          font-weight: bold;
+        }
+        .table tr:nth-child(even) {
+          background-color: #f9f9f9;
+        }
+        .table tr:hover {
+          background-color: #f5f5f5;
+        }
+        .delete-button {
+          padding: 0.25rem 0.5rem;
+          background-color: red;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        .update-button {
+          padding: 0.25rem 0.5rem;
+          background-color: #2eb82e;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        .quantity-input {
+          width: 50px;
+          padding: 0.25rem;
+        }
+        .stats-container {
+          display: flex;
+          justify-content: space-between;
+        }
+        .stat-box {
+          flex: 1;
+          margin: 0.5rem;
+          padding: 1rem;
+          background-color: #f0f0f0;
+          border-radius: 8px;
+          text-align: center;
+        }
+      `}</style>
     </div>
   );
 };
 
-const styles = {
-  container: {
-    fontFamily: 'Arial, sans-serif',
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100vh',
-  },
-  header: {
-    backgroundColor: '#2eb82e',
-    color: 'white',
-    padding: '1rem',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  title: {
-    margin: 0,
-  },
-  content: {
-    display: 'flex',
-    flex: 1,
-  },
-  sidebar: {
-    width: '200px',
-    backgroundColor: '#f4f4f9',
-    padding: '1rem',
-  },
-  main: {
-    flex: 1,
-    padding: '1rem',
-  },
-  footer: {
-    backgroundColor: '#333',
-    color: 'white',
-    textAlign: 'center',
-    padding: '1rem',
-  },
-  logoutButton: {
-    padding: '0.5rem 1rem',
-    backgroundColor: 'red',
-    color: 'white',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-  },
-  tab: {
-    display: 'block',
-    width: '100%',
-    padding: '0.5rem',
-    marginBottom: '0.5rem',
-    backgroundColor: '#e0e0e0',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    textAlign: 'left',
-  },
-  activeTab: {
-    backgroundColor: '#2eb82e',
-    color: 'white',
-  },
-  form: {
-    marginBottom: '1rem',
-  },
-  input: {
-    marginRight: '0.5rem',
-    padding: '0.5rem',
-  },
-  button: {
-    padding: '0.5rem 1rem',
-    backgroundColor: '#2eb82e',
-    color: 'white',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-  },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse',
-  },
-  deleteButton: {
-    padding: '0.25rem 0.5rem',
-    backgroundColor: 'red',
-    color: 'white',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-  },
-  updateButton: {
-    padding: '0.25rem 0.5rem',
-    backgroundColor: '#2eb82e',
-    color: 'white',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-  },
-  quantityInput: {
-    width: '50px',
-    padding: '0.25rem',
-  },
-  statsContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  statBox: {
-    flex: 1,
-    margin: '0.5rem',
-    padding: '1rem',
-    backgroundColor: '#f0f0f0',
-    borderRadius: '8px',
-    textAlign: 'center',
-  },
-};
-
 export default AdminDashboard;
+
